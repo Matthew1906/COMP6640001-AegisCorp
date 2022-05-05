@@ -11,9 +11,6 @@ db = SQLAlchemy()
 # Load Environment Variables
 load_dotenv()
 
-# Configure Locale
-setlocale(LC_ALL, 'id_ID.utf8')
-
 def create_app():
     # Create App
     app = Flask(__name__)
@@ -30,6 +27,9 @@ def create_app():
     db.init_app(app)
     
     # Insert routes
+    from .routes.views import views
+    app.register_blueprint(views, url_prefix='/')
+
     from .routes.auth import auth
     app.register_blueprint(auth, url_prefix='/')
 
@@ -39,12 +39,13 @@ def create_app():
     from .routes.insurance import insurance
     app.register_blueprint(insurance, url_prefix='/')
 
-    from .routes.user import user
-    app.register_blueprint(user, url_prefix='/')
+    from .routes.user import customer
+    app.register_blueprint(customer, url_prefix='/')
 
     # create_database(app)
 
     from .models import User
+    
     # Login Manager
     login_manager = LoginManager()
     login_manager.init_app(app)

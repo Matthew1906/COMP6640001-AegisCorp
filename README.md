@@ -17,4 +17,4 @@ Through the web application, insurance companies can monitor the treatments admi
 
 The mobile application acts as a platform for the user to register an account using their credentials and their registered insurance policy.
 After registration, users (as patients) can walk into a hospital that has partnered with the system and scan a QR code to notify the hospital that they are a member of a certain insurance company that also uses the system.
-This is also the time when hospitals can verify the identity of the user to prevent fraudulent use of insurance benefits by certain individuals.
+This is also the time when hospitals can verify the identity of the user to prevent fraudulent use of insurance benefits by certain individuals
