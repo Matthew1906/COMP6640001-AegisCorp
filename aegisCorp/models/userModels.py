@@ -11,17 +11,24 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255), unique=True, nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
+    sex = db.Column(db.Boolean, nullable=False)
     dob = db.Column(db.Date, nullable=False)
     customers = relationship('Customer', back_populates='user')
     insurance_staffs = relationship('InsuranceStaff', back_populates='user')
     hospital_staffs = relationship('HospitalStaff', back_populates='user')
 
 class Customer(db.Model):
-    __tablename__ = 'customers'
+    __tablename__ = 'members'
     id = db.Column(db.Integer, primary_key=True)
     user = relationship("User", back_populates='customers')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    insurances = relationship("CustomerInsurance", back_populates="customer")
+    pob = db.Column(db.String(255))
+    marital_status = db.Column(db.Boolean, nullable=False)
+    mother_name = db.Column(db.String(255), nullable=False)
+    phone = db.Column(db.String(15), unique=True, nullable=False)
+    address = db.Column(db.String(500), nullable=False)
+    image_url = db.Column(db.String(500), unique=True, nullable=False)
+    insurances = relationship("CustomerInsurance", back_populates="member")
     treatments = relationship("TreatmentHeader", back_populates='customer')
 
 class InsuranceStaff(db.Model):

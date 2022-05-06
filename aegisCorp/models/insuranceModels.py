@@ -18,19 +18,21 @@ class InsurancePolicy(db.Model):
     company_id = db.Column(db.Integer, db.ForeignKey('companies.id'), primary_key=True)
     benefits = db.Column(db.String(2000), nullable=False)
     customer_insurances = relationship("CustomerInsurance", back_populates='policy')
-    treatment_claims = relationship("TreatmentClaim", back_populates='policy')
 
 class CustomerInsurance(db.Model):
     __tablename__ = 'customerInsurances'
-    customer = relationship("Customer", back_populates='insurances')
-    customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'), primary_key=True)
+    member = relationship("Customer", back_populates='insurances')
+    member_id = db.Column(db.Integer, db.ForeignKey('members.id'), primary_key=True)
     policy = relationship("InsurancePolicy", back_populates='customer_insurances')
     policy_id = db.Column(db.Integer, db.ForeignKey('policies.id'), primary_key=True)
+    expiration_date = db.Column(db.DateTime, nullable=False)
+    treatment_claims = relationship("TreatmentClaim", back_populates='customer_insurance')
 
 class TreatmentClaim(db.Model):
     __tablename__ = 'treatmentClaims'
-    policy = relationship("InsurancePolicy", back_populates='treatment_claims')
-    policy_id = db.Column(db.Integer, db.ForeignKey('policies.id'), primary_key=True)
+    customer_insurance = relationship("CustomerInsurance", back_populates='treatment_claims')
+    policy_id = db.Column(db.Integer, db.ForeignKey('customerInsurances.policy_id'), primary_key=True)
+    member_id = db.Column(db.Integer, db.ForeignKey('customerInsurances.member_id'), primary_key=True)
     treatment = relationship("TreatmentHeader", back_populates='claims')
     treatment_id = db.Column(db.Integer, db.ForeignKey('treatmentHeaders.id'), primary_key=True)
     claim_status = db.Column(db.Boolean, nullable=False)
