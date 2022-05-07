@@ -1,0 +1,5 @@
+,id,name,email,password,sex,dob
+0,1,Daniel Smith,daniel@gmail.com,daniel,True,1997-02-16
+1,2,Caitlin Roberson,caitlin@gmail.com,caitlin,False,1988-10-22
+2,3,Adam Mathews,adam@gmail.com,adam,True,1995-03-21
+3,4,Valerie Webb,valerie@gmail.com,valerie,False,1996-09-15
