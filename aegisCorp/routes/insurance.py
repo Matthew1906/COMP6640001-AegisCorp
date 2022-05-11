@@ -1,3 +1,3 @@
 from flask import Blueprint
 
-insurance = Blueprint("auth", __name__)
+insurance = Blueprint("insurance", __name__)

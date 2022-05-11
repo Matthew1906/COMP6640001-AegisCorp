@@ -1,0 +1,8 @@
+,id,type_id,name,price
+0,8011,9001,Cesarean Section,23000
+1,8012,9001,Appendectomy,15000
+2,8013,9001,Coronary Artery Bypass,150000
+3,8021,9002,CT Scans,3500
+4,8022,9002,MRI Scans,4000
+5,8031,9003,Dialysis,550
+6,8032,9003,Blood Transfusion,2000

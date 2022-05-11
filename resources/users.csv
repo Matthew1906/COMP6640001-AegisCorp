@@ -1,5 +1,5 @@
 ,id,name,email,password,sex,dob
-0,1,Daniel Smith,daniel@gmail.com,daniel,True,1997-02-16
-1,2,Caitlin Roberson,caitlin@gmail.com,caitlin,False,1988-10-22
-2,3,Adam Mathews,adam@gmail.com,adam,True,1995-03-21
-3,4,Valerie Webb,valerie@gmail.com,valerie,False,1996-09-15
+0,1,Alexis Lopez,alexis@gmail.com,pbkdf2:sha256:260000$BAi0dexHk$b3dbbf461fd643ce308795ce2d9d57a34b3648c2ede6c98d2a46b1888a80dbad,True,1991-08-15
+1,2,Chelsea Cobb,chelsea@gmail.com,pbkdf2:sha256:260000$FXMJug873$9611e1c643bc331136f5681ff478e2e1cb6d4d6f1eb4ae92bb460ef7c058b01e,False,1997-12-06
+2,3,Eric Salinas,eric@gmail.com,pbkdf2:sha256:260000$KpgSab43y$f4933c44132463462b2abaa2b5669f81e77fabe6880ebe1c16da4a2e558a6967,True,1989-01-09
+3,4,Elizabeth Gonzalez,elizabeth@gmail.com,pbkdf2:sha256:260000$8spEI000r$bf5b5d3a9f16aa426ce86eece7222e2306559034a1fbccba2309cf27d3585a62,False,1996-10-28

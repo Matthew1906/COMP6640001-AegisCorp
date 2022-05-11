@@ -1,7 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
+from ..models import User
 
 views = Blueprint("views", __name__)
 
 @views.route("/")
 def home():
-    return "<h1>Hello World</h1>"
+    users = User.query.all()
+    result = [{'name':user.name, "email":user.email} for user in users]
+    return jsonify(result)

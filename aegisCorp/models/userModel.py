@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     hospital_staffs = relationship('HospitalStaff', back_populates='user')
 
 class Customer(db.Model):
-    __tablename__ = 'members'
+    __tablename__ = 'customers'
     id = db.Column(db.Integer, primary_key=True)
     user = relationship("User", back_populates='customers')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

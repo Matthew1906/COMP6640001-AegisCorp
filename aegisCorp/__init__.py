@@ -39,20 +39,35 @@ def create_app():
     from .routes.insurance import insurance
     app.register_blueprint(insurance, url_prefix='/')
 
-    from .routes.user import customer
+    from .routes.customer import customer
     app.register_blueprint(customer, url_prefix='/')
 
+    # Initialize Database (if necessary)
     # create_database(app)
-
-    from .models.userModels import User
-    
+ 
     # Login Manager
     login_manager = LoginManager()
     login_manager.init_app(app)
 
     # Default loading user function
+    from .models import User
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
-
     return app
+
+def create_database(app):
+    db.create_all(app=app)
+    with app.app_context():
+        table_names = [
+            'doctors', 'hospital_staffs', 
+            'hospitals','policies', 
+            'insurance_staffs', 'companies',
+            'medications', 'procedure_types',
+            'procedures','users'
+        ]
+        for table_name in table_names:
+            df = read_csv(f'./resources/{table_name}.csv', delimiter=',', index_col=0)             
+            name = table_name.split("_")[0] + table_name.split("_")[1].capitalize()\
+                if table_name.find("_")!=1 else table_name
+            df.to_sql(name = name, con = db.engine, if_exists = 'append', index = False)
