@@ -69,5 +69,5 @@ def create_database(app):
         for table_name in table_names:
             df = read_csv(f'./resources/{table_name}.csv', delimiter=',', index_col=0)             
             name = table_name.split("_")[0] + table_name.split("_")[1].capitalize()\
-                if table_name.find("_")!=1 else table_name
+                if table_name.find("_")!=-1 else table_name
             df.to_sql(name = name, con = db.engine, if_exists = 'append', index = False)

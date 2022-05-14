@@ -8,7 +8,12 @@
     {% endif %}
 {% endblock %}
 
+{% block styles %} 
+    <link rel="stylesheet" href="{{url_for('static', filename='css/auth.css')}}">
+{% endblock %}
+
 {% block content %}
+<main>
     {% with messages = get_flashed_messages() %}
         {% if messages: %}
             <p style="color:red;">{{messages[0]}}</p>
@@ -84,5 +89,6 @@
             <br>
             {{form.submit()}}
         </form>
+</main>
     {% endif %}
 {% endblock %}

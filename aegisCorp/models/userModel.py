@@ -27,7 +27,7 @@ class Customer(db.Model):
     mother_name = db.Column(db.String(255), nullable=False)
     phone = db.Column(db.String(15), unique=True, nullable=False)
     address = db.Column(db.String(500), nullable=False)
-    image_url = db.Column(db.String(500), unique=True, nullable=False)
+    image_url = db.Column(db.String(500), nullable=False)
     insurances = relationship("CustomerInsurance", back_populates="member")
     treatments = relationship("TreatmentHeader", back_populates='customer')
 

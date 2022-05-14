@@ -58,13 +58,8 @@ def login():
     elif form.validate_on_submit():
         email = request.form.get("email")
         password = request.form.get('password')
-        if user_type == 'Customer':
-            model = Customer
-        elif user_type == 'Hospital':
-            model = HospitalStaff
-        else:
-            model = InsuranceStaff
-        find_user = get_user_by_email(model, email)
+        user_models={'Customer':Customer, 'Hospital':HospitalStaff, 'Insurance':InsuranceStaff}
+        find_user = get_user_by_email(user_models.get(user_type), email)
         if find_user!=None:
             if check_password_hash(find_user.password, password):
                 login_user(find_user)
