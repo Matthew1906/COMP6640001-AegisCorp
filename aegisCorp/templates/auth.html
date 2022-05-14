@@ -21,7 +21,7 @@
     {% endwith %} 
     {% if purpose == 'register' %}
         <h5>Customer Registration</h5>
-        <form action="{{url_for('auth.register')}}" method="post" novalidate>
+        <form action="{{url_for('auth.register')}}" method="POST" enctype="multipart/form-data" novalidate>
             {{form.csrf_token}}
             <div>
                 <label>{{form.name.label}}</label>
@@ -64,8 +64,8 @@
                 {{form.address()}}
             </div>
             <div>
-                <label>{{form.image_url.label}}</label>
-                {{form.image_url()}}
+                <label>{{form.image.label}}</label>
+                {{form.image()}}
             </div>
             <br>
             {{form.submit()}}

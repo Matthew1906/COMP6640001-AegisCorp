@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .. import db
 from ..forms import RegisterForm, LoginForm
 from ..models import User, Customer, HospitalStaff, InsuranceStaff
+from ..utils.image_processing import get_image_url
 
 auth = Blueprint("auth", __name__)
 
@@ -39,7 +40,9 @@ def register():
                 mother_name = request.form.get('mother_name'),
                 phone = request.form.get('phone'),
                 address = request.form.get('address'),
-                image_url = request.form.get('image_url') if request.form.get('image_url')!='' else 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
+                image_url = get_image_url(request.files['image'].read(), new_user.name.lower().split()[0]+ str(new_user.id) +'.jpg') \
+                    if 'image' in request.files and request.files['image'].filename !='' \
+                    else 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
             )
             db.session.add(new_customer)
             db.session.commit()
