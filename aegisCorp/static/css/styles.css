@@ -1,0 +1,14 @@
+.header{
+    background-color: blue;
+    height: 8em;
+}
+
+.footer{
+    background-color: red;
+    height: 8em;
+    color: white;
+}
+
+.footer-content{
+    height: 8em;
+}

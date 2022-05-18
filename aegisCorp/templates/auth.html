@@ -19,41 +19,42 @@
             {% if messages: %}
                 <p style="color:red;">{{messages[0]}}</p>
             {% endif %}
-        {% endwith %} 
-        {% if purpose == 'register' %}
-        <div class="row d-flex justify-content-center">
-            <div class="col">
+            {% endwith %} 
+            {% if purpose == 'register' %}
+            <div class="d-flex justify-content-center">
                 <h5>Customer Registration</h5>
             </div>
-        </div>
             <form action="{{url_for('auth.register')}}" method="POST" enctype="multipart/form-data" novalidate>
                 {{form.csrf_token}}
-                <div>
-                    <label>{{form.name.label}}</label>
-                    {{form.name()}}
-                </div>
-                <div>
-                    <label>{{form.email.label}}</label>
-                    {{form.email()}}
-                </div>
-                <div>
-                    <label>{{form.password.label}}</label>
-                    {{form.password()}}
-                </div>
-                <div>
-                    <label>{{form.sex.label}}</label>
-                    {{form.sex()}}
-                </div>
-                <div>
-                    <label>{{form.dob.label}}</label>
-                    {{form.dob()}}
-                </div>
-                <div>
-                    <label>{{form.pob.label}}</label>
-                    {{form.pob()}}
+                <div class="col-6">
+                    <div class="row">
+                        <label>{{form.name.label}}</label>
+                        {{form.name()}}
+                    </div>
+                    <div>
+                        <label>{{form.email.label}}</label>
+                        {{form.email()}}
+                    </div>
+                    <div>
+                        <label>{{form.password.label}}</label>
+                        {{form.password()}}
+                    </div>
+                    <div>
+                        <label>{{form.sex.label}}</label>
+                        {{form.sex()}}
+                    </div>
+                    <div>
+                        <label>{{form.dob.label}}</label>
+                        {{form.dob()}}
+                    </div>
+                    <div>
+                        <label>{{form.pob.label}}</label>
+                        {{form.pob()}}
+                    </div>
                 </div>
 
-                
+            
+            <div class="col-6">
                 <div>
                     <label>{{form.marital_status.label}}</label>
                     {{form.marital_status()}}
@@ -76,7 +77,8 @@
                 </div>
                 <br>
                 {{form.submit()}}
-            </form>
+            </div>
+        </form>
         {% else %}
             <h5>Login</h5>
             <form action="{{url_for('auth.login')}}" method="post">
