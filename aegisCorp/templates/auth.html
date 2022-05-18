@@ -14,81 +14,89 @@
 
 {% block content %}
 <main>
-    {% with messages = get_flashed_messages() %}
-        {% if messages: %}
-            <p style="color:red;">{{messages[0]}}</p>
-        {% endif %}
-    {% endwith %} 
-    {% if purpose == 'register' %}
-        <h5>Customer Registration</h5>
-        <form action="{{url_for('auth.register')}}" method="POST" enctype="multipart/form-data" novalidate>
-            {{form.csrf_token}}
-            <div>
-                <label>{{form.name.label}}</label>
-                {{form.name()}}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages: %}
+                <p style="color:red;">{{messages[0]}}</p>
+            {% endif %}
+        {% endwith %} 
+        {% if purpose == 'register' %}
+        <div class="row d-flex justify-content-center">
+            <div class="col">
+                <h5>Customer Registration</h5>
             </div>
-            <div>
-                <label>{{form.email.label}}</label>
-                {{form.email()}}
-            </div>
-            <div>
-                <label>{{form.password.label}}</label>
-                {{form.password()}}
-            </div>
-            <div>
-                <label>{{form.sex.label}}</label>
-                {{form.sex()}}
-            </div>
-            <div>
-                <label>{{form.dob.label}}</label>
-                {{form.dob()}}
-            </div>
-            <div>
-                <label>{{form.pob.label}}</label>
-                {{form.pob()}}
-            </div>
-            <div>
-                <label>{{form.marital_status.label}}</label>
-                {{form.marital_status()}}
-            </div>
-            <div>
-                <label>{{form.mother_name.label}}</label>
-                {{form.mother_name()}}
-            </div>
-            <div>
-                <label>{{form.phone.label}}</label>
-                {{form.phone()}}
-            </div>
-            <div>
-                <label>{{form.address.label}}</label>
-                {{form.address()}}
-            </div>
-            <div>
-                <label>{{form.image.label}}</label>
-                {{form.image()}}
-            </div>
-            <br>
-            {{form.submit()}}
-        </form>
-    {% else %}
-        <h5>Login</h5>
-        <form action="{{url_for('auth.login')}}" method="post">
-            {{form.csrf_token}}
-            <div>
-                <label>{{form.type.label}}</label>
-                {{form.type()}}
-            </div>
-            <div>
-                <label>{{form.email.label}}</label>
-                {{form.email()}}
-            </div>
-            <div>
-                <label>{{form.password.label}}</label>
-                {{form.password()}}
-            </div>
-            <br>
-            {{form.submit()}}
-        </form>
+        </div>
+            <form action="{{url_for('auth.register')}}" method="POST" enctype="multipart/form-data" novalidate>
+                {{form.csrf_token}}
+                <div>
+                    <label>{{form.name.label}}</label>
+                    {{form.name()}}
+                </div>
+                <div>
+                    <label>{{form.email.label}}</label>
+                    {{form.email()}}
+                </div>
+                <div>
+                    <label>{{form.password.label}}</label>
+                    {{form.password()}}
+                </div>
+                <div>
+                    <label>{{form.sex.label}}</label>
+                    {{form.sex()}}
+                </div>
+                <div>
+                    <label>{{form.dob.label}}</label>
+                    {{form.dob()}}
+                </div>
+                <div>
+                    <label>{{form.pob.label}}</label>
+                    {{form.pob()}}
+                </div>
+
+                
+                <div>
+                    <label>{{form.marital_status.label}}</label>
+                    {{form.marital_status()}}
+                </div>
+                <div>
+                    <label>{{form.mother_name.label}}</label>
+                    {{form.mother_name()}}
+                </div>
+                <div>
+                    <label>{{form.phone.label}}</label>
+                    {{form.phone()}}
+                </div>
+                <div>
+                    <label>{{form.address.label}}</label>
+                    {{form.address()}}
+                </div>
+                <div>
+                    <label>{{form.image.label}}</label>
+                    {{form.image()}}
+                </div>
+                <br>
+                {{form.submit()}}
+            </form>
+        {% else %}
+            <h5>Login</h5>
+            <form action="{{url_for('auth.login')}}" method="post">
+                {{form.csrf_token}}
+                <div>
+                    <label>{{form.type.label}}</label>
+                    {{form.type()}}
+                </div>
+                <div>
+                    <label>{{form.email.label}}</label>
+                    {{form.email()}}
+                </div>
+                <div>
+                    <label>{{form.password.label}}</label>
+                    {{form.password()}}
+                </div>
+                <br>
+                {{form.submit()}}
+            </form>
+    </div>
 </main>
     {% endif %}
 {% endblock %}
