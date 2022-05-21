@@ -1,0 +1,120 @@
+{% extends "./layout.html" %}
+
+{% block title %}
+    {% if purpose == 'add' %}
+    Add Treatment
+    {% else %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid my-4">
+    {% if purpose == 'add' %}
+    <form action="{{url_for('hospital.add_treatment')}}" method="post" novalidate>
+        <h3>Add New Treatment</h3>
+        {{form.csrf_token}}
+        {% for detail in form %} 
+            {% if detail != form.submit and detail != form.csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">{{detail.label}}</label>
+                {{detail(class='form-control')}}
+            </div>
+            {% endif %}
+        {% endfor %}
+        {{form.submit(class="btn btn-primary float-end")}}
+    </form>
+    {% elif purpose == 'show' %}
+    <div>
+        <img src="{{treatment.customer.image_url}}" alt="{{treatment.customer.user.name}}" width="100px" height="100px">
+        <h3>{{treatment.customer.user.name}}</h3>
+        <em>{{treatment.customer.user.email}}</em>
+        <p>{{treatment.customer.user.sex | format_gender}}</p>
+        <p>{{treatment.customer.user.dob | format_dob}}</p>
+        <p>{{treatment.customer.user.dob | format_age}}</p>
+        <div class="border">
+            <p>{{treatment.customer.pob}}</p>
+            <p>{{treatment.customer.mother_name}}</p>
+            <p>{{treatment.customer.phone}}</p>
+            <p>{{treatment.customer.address}}</p>
+            <p>{{treatment.customer.marital_status | format_marital_status}}</p>
+        </div>
+    </div>
+    <div>
+        {% if treatment.details != [] %}
+        <table class="table">
+            <tr>
+                <th>Treatment Type</th>
+                <th>Doctor</th>
+                <th>Treatment Detail</th>
+                <th>Treatment Cost </th>
+                <th>Treatment Status</th>
+                <th></th>
+            </tr>
+            {% for detail in treatment.details[::-1] %}
+            <tr>
+                <td>{{detail | get_treatment_type}}</td>
+                <td>{{detail.doctor.name}}</td>
+                <td>{{detail | get_treatment_detail}}</td>
+                <td>{{detail | get_treatment_cost}}</td>
+                <td>{{detail | get_treatment_status}}</td>
+                <td class="d-flex justify-content-center px-2">
+                    <button>
+                        <a href="{{url_for('hospital.update_detail', treatment_id=treatment.id, type = detail|get_treatment_type_lower, detail_id=detail.id)}}" class="text-decoration-none">
+                            🖉
+                        </a>
+                    </button>
+                    <form action="{{url_for('hospital.delete_detail', treatment_id=treatment.id, type = detail|get_treatment_type_lower, detail_id=detail.id)}}" method="post">
+                        <button type="submit">❌</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            No Details
+        {% endif %}
+        <br>
+        <div class="dropdown float-end">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              Add Treatment Detail
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="{{url_for('hospital.add_detail', treatment_id=treatment.id, type='medication')}}">Medication</a></li>
+              <li><a class="dropdown-item" href="{{url_for('hospital.add_detail', treatment_id=treatment.id, type='checkup')}}">Medical Checkup</a></li>
+              <li><a class="dropdown-item" href="{{url_for('hospital.add_detail', treatment_id=treatment.id, type='procedure')}}">Medical Procedure</a></li>
+            </ul>
+          </div>
+    </div>
+    {% elif 'detail' in purpose %}
+        <form 
+        action="{% if 'add' in purpose %}{{url_for('hospital.add_detail', treatment_id=treatment.id, type=type)}}
+        {% else %}{{url_for('hospital.update_detail', treatment_id=treatment.id, type = type, detail_id=detail.id)}}   
+        {% endif %}" 
+        method="post" 
+        novalidate>
+            <h3>
+                {% if 'add' in purpose %}
+                    Add New 
+                {% else %}
+                    Edit
+                {% endif %}
+                    Treatment Detail
+            </h3>
+            {{form.csrf_token}}
+            {% for detail in form %} 
+                {% if detail != form.submit and detail != form.csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">{{detail.label}}</label>
+                    {{detail(class='form-control')}}
+                </div>
+                {% endif %}
+            {% endfor %}
+            {% if 'add' in purpose %}
+                {{form.submit(class="btn btn-primary float-end")}}
+            {% else %}
+                {{form.submit(class="btn btn-primary float-end", value='Edit Detail')}}
+            {% endif %}
+        </form>
+    {% endif %}
+</main>
+{% endblock %}

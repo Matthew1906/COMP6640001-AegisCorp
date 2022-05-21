@@ -6,8 +6,8 @@ from sqlalchemy.orm import relationship
 class CheckUp(db.Model):
     __tablename__ = 'checkups'
     id = db.Column(db.Integer, primary_key=True)
-    treatment = relationship("TreatmentDetail", back_populates='checkups')
-    treatment_id = db.Column(db.Integer, db.ForeignKey('treatmentDetails.id'), primary_key=True)
+    treatment = relationship("TreatmentDetail", back_populates='checkup')
+    treatment_id = db.Column(db.Integer, db.ForeignKey('treatmentDetails.id'))
     diagnosis = db.Column(db.String(2000), nullable=False)
     price = db.Column(db.Integer, nullable=False)
 
@@ -22,7 +22,7 @@ class MedicationDetail(db.Model):
     __tablename__ = 'medicationDetails'
     medication = relationship("Medication", back_populates='details')
     medication_id = db.Column(db.Integer, db.ForeignKey("medications.id"), primary_key=True)
-    treatment = relationship("TreatmentDetail", back_populates='medications')
+    treatment = relationship("TreatmentDetail", back_populates='medication')
     treatment_id = db.Column(db.Integer, db.ForeignKey('treatmentDetails.id'), primary_key=True)
     dosage = db.Column(db.Integer, nullable=False)
 
@@ -39,7 +39,7 @@ class ProcedureDetail(db.Model):
     __tablename__ = 'procedureDetails'
     procedure = relationship("Procedure", back_populates='details')
     procedure_id = db.Column(db.Integer, db.ForeignKey('procedures.id'), primary_key=True)
-    treatment = relationship("TreatmentDetail", back_populates='procedures')
+    treatment = relationship("TreatmentDetail", back_populates='procedure')
     treatment_id = db.Column(db.Integer, db.ForeignKey('treatmentDetails.id'), primary_key=True)
 
 class ProcedureType(db.Model):

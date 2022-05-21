@@ -3,9 +3,8 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from .. import db
-from ..forms import RegisterForm, LoginForm
+from ..utils import RegisterForm, LoginForm, get_image_url, user_models
 from ..models import User, Customer, HospitalStaff, InsuranceStaff
-from ..utils.image_processing import get_image_url
 
 auth = Blueprint("auth", __name__)
 
@@ -61,7 +60,6 @@ def login():
     elif form.validate_on_submit():
         email = request.form.get("email")
         password = request.form.get('password')
-        user_models={'Customer':Customer, 'Hospital':HospitalStaff, 'Insurance':InsuranceStaff}
         find_user = get_user_by_email(user_models.get(user_type), email)
         if find_user!=None:
             if check_password_hash(find_user.password, password):
@@ -79,7 +77,7 @@ def login():
             return redirect(url_for('auth.login'))
 
 @login_required
-@auth.route("/logout", methods=['GET', 'POST'])
+@auth.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('views.home'))

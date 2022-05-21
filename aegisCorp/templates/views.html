@@ -1,0 +1,35 @@
+{% extends "./layout.html" %}
+
+{% block title %}
+    {{type}} Dashboard
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid my-4">
+    {% if treatments != [] %}
+    <table class="table">
+        <tr>
+            <th>Hospital Name</th>
+            <th>Patient Name</th>
+            <th>Treatment Description</th>
+            <th></th>
+        </tr>
+    {% for treatment in treatments: %}
+        <tr>
+            <td>{{treatment.hospital.name}}</td>
+            <td>{{treatment.customer.user.name}}</td>
+            <td>{{treatment.description}}</td>
+            <td><a href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}" class="btn btn-info">Check It Out</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+    {% if type == 'Hospital' %}
+        <a href="{{url_for('hospital.add_treatment')}}" class="btn btn-primary">Add Treatment</a>
+    {% elif type == 'Insurance' %}
+        Insurance
+    {% else %}  
+        Customer
+    {% endif %}
+</main>
+{% endblock %}

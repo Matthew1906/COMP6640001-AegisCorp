@@ -42,6 +42,9 @@ def create_app():
     from .routes.customer import customer
     app.register_blueprint(customer, url_prefix='/')
 
+    from .utils import utils 
+    app.register_blueprint(utils, url_prefix='/')
+
     # Initialize Database (if necessary)
     # create_database(app)
  
