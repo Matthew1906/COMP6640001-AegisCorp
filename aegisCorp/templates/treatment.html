@@ -51,6 +51,17 @@
         </div>
     </div>
     <div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Treatment Type
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}">All</a></li>
+                <li><a class="dropdown-item" href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}?type=checkup">Medical Checkup</a></li>
+                <li><a class="dropdown-item" href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}?type=medication">Medication</a></li>
+                <li><a class="dropdown-item" href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}?type=procedure">Medical Procedure</a></li>
+            </ul>
+        </div>
         {% if details.count()!=0 %}
         <table class="table">
             <tr>

@@ -29,6 +29,13 @@ def add_treatment():
 def get_treatment(treatment_id:int):
     treatment = TreatmentHeader.query.filter_by(id=treatment_id).first()
     details = TreatmentDetail.query.filter_by(header_id=treatment.id).order_by(TreatmentDetail.startDate.desc())
+    detail_filters = {
+        'all':details,
+        'checkup':details.join(TreatmentDetail.checkup),
+        'medication':details.join(TreatmentDetail.medication),
+        'procedure':details.join(TreatmentDetail.procedure)
+    }
+    details = detail_filters.get(request.args.get('type','all'))
     return render_template('treatment.html', purpose='show', treatment=treatment, details=details)
 
 @hospital.route("/treatments/<int:treatment_id>/add/<type>", methods=['GET','POST'])
