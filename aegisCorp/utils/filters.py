@@ -65,3 +65,7 @@ def get_treatment_type(detail):
         return "checkup"
     else: 
         return "procedure"
+
+@utils.app_template_filter('add_args')
+def add_args(detail):
+    return f"&search={detail}" if detail else ""

@@ -28,7 +28,8 @@ def add_treatment():
 @login_required
 def get_treatment(treatment_id:int):
     treatment = TreatmentHeader.query.filter_by(id=treatment_id).first()
-    return render_template('treatment.html', purpose='show', treatment=treatment)
+    details = TreatmentDetail.query.filter_by(header_id=treatment.id).order_by(TreatmentDetail.startDate.desc())
+    return render_template('treatment.html', purpose='show', treatment=treatment, details=details)
 
 @hospital.route("/treatments/<int:treatment_id>/add/<type>", methods=['GET','POST'])
 @hospital_only

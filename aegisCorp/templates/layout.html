@@ -17,6 +17,7 @@
         {% if current_user.is_authenticated %}
             <a href="{{url_for('auth.logout')}}" class="btn btn-danger">Logout</a>
         {% endif %}
+            {% block back_button %}{% endblock %}
     </header>
     {% block content %}{% endblock %}
     <footer class="container-fluid footer">

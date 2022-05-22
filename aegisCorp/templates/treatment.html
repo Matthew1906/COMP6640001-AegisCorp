@@ -2,8 +2,19 @@
 
 {% block title %}
     {% if purpose == 'add' %}
-    Add Treatment
+        Add Treatment
+    {% elif 'detail' in purpose %}
+        Edit Treatment Details
     {% else %}
+        Treatment Details
+    {% endif %}
+{% endblock %}
+
+{% block back_button %}
+    {% if 'detail' in purpose %}
+        <a href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}" class="btn btn-warning">Go Back</a>
+    {% else %}
+        <a href="{{url_for('views.home')}}" class="btn btn-warning">Go Back</a>
     {% endif %}
 {% endblock %}
 
@@ -40,7 +51,7 @@
         </div>
     </div>
     <div>
-        {% if treatment.details != [] %}
+        {% if details.count()!=0 %}
         <table class="table">
             <tr>
                 <th>Treatment Type</th>
@@ -50,7 +61,7 @@
                 <th>Treatment Status</th>
                 <th></th>
             </tr>
-            {% for detail in treatment.details[::-1] %}
+            {% for detail in details %}
             <tr>
                 <td>{{detail | get_treatment_type}}</td>
                 <td>{{detail.doctor.name}}</td>
