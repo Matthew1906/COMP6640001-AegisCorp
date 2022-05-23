@@ -35,19 +35,85 @@
         {{form.submit(class="btn btn-primary float-end")}}
     </form>
     {% elif purpose == 'show' %}
-    <div>
-        <img src="{{treatment.customer.image_url}}" alt="{{treatment.customer.user.name}}" width="100px" height="100px">
-        <h3>{{treatment.customer.user.name}}</h3>
-        <em>{{treatment.customer.user.email}}</em>
-        <p>{{treatment.customer.user.sex | format_gender}}</p>
-        <p>{{treatment.customer.user.dob | format_dob}}</p>
-        <p>{{treatment.customer.user.dob | format_age}}</p>
-        <div class="border">
-            <p>{{treatment.customer.pob}}</p>
-            <p>{{treatment.customer.mother_name}}</p>
-            <p>{{treatment.customer.phone}}</p>
-            <p>{{treatment.customer.address}}</p>
-            <p>{{treatment.customer.marital_status | format_marital_status}}</p>
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+        <div class="col-2">
+            <span>
+                <img class="rounded-circle" src="{{treatment.customer.image_url}}" alt="{{treatment.customer.user.name}}" width="100px" height="100px">
+            </span>
+            <h3>{{treatment.customer.user.name}}, {{treatment.customer.user.dob | format_age}}</h3>
+            <!-- <em>{{treatment.customer.user.email}}</em> -->
+        </div>
+        <div class="col-3 p-0 offset-1">
+            <div class="border">
+                <div class="row m-1">
+                    <div class="col-5 text-center p-0 bg-primary m-1">
+                        Gender
+                    </div>
+                    <div class="col-5">
+                        <p>{{treatment.customer.user.sex | format_gender}}</p>
+                    </div>
+                </div>
+                <div class="row m-1">
+                    <div class="col-5 text-center p-0 bg-primary m-1">
+                        Date of Birth
+                    </div>
+                    <div class="col-5">
+                        <p>{{treatment.customer.user.dob | format_dob}}</p>
+                    </div>
+                </div>
+                <div class="row m-1">
+                    <div class="col-5 text-center p-0 bg-primary m-1">
+                        Email
+                    </div>
+                    <div class="col-5">
+                        <p><em>{{treatment.customer.user.email}}</em></p>
+                    </div>
+                </div>
+                <div class="row m-1">
+                    <div class="col-5 text-center p-0 bg-primary m-1">
+                        Place of Birth
+                    </div>
+                    <div class="col-5">
+                        <p>{{treatment.customer.pob}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 p-0 ">
+            <div class="border">
+                <div class="row m-1">
+                    <div class="col-5 text-center p-0 bg-primary m-1">
+                        Mother Name
+                    </div>
+                    <div class="col-5">
+                        <p>{{treatment.customer.mother_name}}</p>
+                    </div>
+                </div>
+                <div class="row m-1">
+                    <div class="col-5 text-center p-0 bg-primary m-1">
+                        Phone Number
+                    </div>
+                    <div class="col-5">
+                        <p>{{treatment.customer.phone}}</p>
+                    </div>
+                </div>
+                <div class="row m-1">
+                    <div class="col-5 text-center p-0 bg-primary m-1">
+                        Address
+                    </div>
+                    <div class="col-5">
+                        <p>{{treatment.customer.address}}</p>
+                    </div>
+                </div>
+                <div class="row m-1">
+                    <div class="col-5 text-center p-0 bg-primary m-1">
+                        Marital Status
+                    </div>
+                    <div class="col-5">
+                        <p>{{treatment.customer.marital_status | format_marital_status}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div>
