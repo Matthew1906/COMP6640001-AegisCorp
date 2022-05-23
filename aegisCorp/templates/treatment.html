@@ -25,7 +25,7 @@
         <h3>Add New Treatment</h3>
         {{form.csrf_token}}
         {% for detail in form %} 
-            {% if detail != form.submit and detail != form.csrf_token %}
+            {% if detail not in [form.submit, form.csrf_token, form.hospital] %}
             <div class="mb-3">
                 <label class="form-label">{{detail.label}}</label>
                 {{detail(class='form-control')}}
@@ -58,7 +58,7 @@
                         Date of Birth
                     </div>
                     <div class="col-5">
-                        <p>{{treatment.customer.user.dob | format_dob}}</p>
+                        <p>{{treatment.customer.user.dob | format_date}}</p>
                     </div>
                 </div>
                 <div class="row m-1">
@@ -133,7 +133,8 @@
             <tr>
                 <th>Treatment Type</th>
                 <th>Doctor</th>
-                <th>Treatment Detail</th>
+                <th>Treatment Description</th>
+                <th>Treatment Date</th>
                 <th>Treatment Cost </th>
                 <th>Treatment Status</th>
                 <th></th>
@@ -143,6 +144,7 @@
                 <td>{{detail | get_treatment_type}}</td>
                 <td>{{detail.doctor.name}}</td>
                 <td>{{detail | get_treatment_detail}}</td>
+                <td>{{detail.startDate | format_date}}</td>
                 <td>{{detail | get_treatment_cost}}</td>
                 <td>{{detail | get_treatment_status}}</td>
                 <td class="d-flex justify-content-center px-2">

@@ -10,8 +10,8 @@ def currency(price:int):
     suffix = price_str[prefix_index:]
     return 'Rp' + prefix +''.join(["." + suffix[i*3:3*i+3] for i in range(len(price_str)//3) if suffix[i*3:i*3+3]!='']) + ',00'
 
-@utils.app_template_filter('format_dob')
-def format_dob(date):
+@utils.app_template_filter('format_date')
+def format_date(date):
     return date.strftime("%d/%m/%Y")
 
 @utils.app_template_filter('format_age')
@@ -69,3 +69,14 @@ def get_treatment_type(detail):
 @utils.app_template_filter('add_args')
 def add_args(detail):
     return f"&search={detail}" if detail else ""
+
+@utils.app_template_filter('get_first_date')
+def get_first_date(details):
+    if details == []:
+        return "No Treatment Registered"
+    else:
+        first_date = details[0].startDate
+        for detail in details:
+            if detail.startDate<first_date:
+                first_date = detail.startDate
+        return format_date(first_date)
