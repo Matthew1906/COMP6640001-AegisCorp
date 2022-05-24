@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Blueprint
+from ..models import Customer, HospitalStaff, InsuranceStaff
 
 utils = Blueprint('utils', __name__)
 
@@ -9,6 +10,20 @@ def currency(price:int):
     prefix = price_str[:prefix_index]
     suffix = price_str[prefix_index:]
     return 'Rp' + prefix +''.join(["." + suffix[i*3:3*i+3] for i in range(len(price_str)//3) if suffix[i*3:i*3+3]!='']) + ',00'
+
+user_models={'Customer':Customer, 'Hospital':HospitalStaff, 'Insurance':InsuranceStaff}
+
+@utils.app_template_filter('get_user_type')
+def get_user_type(current_user):
+    hospital_staff = HospitalStaff.query.filter_by(user_id = current_user.id).first()
+    insurance_staff = InsuranceStaff.query.filter_by(user_id = current_user.id).first()
+    customer = Customer.query.filter_by(user_id = current_user.id).first()
+    if hospital_staff:
+        return 'Hospital'
+    elif insurance_staff:
+        return 'Insurance'
+    else:
+        return "Customer"
 
 @utils.app_template_filter('format_date')
 def format_date(date):

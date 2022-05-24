@@ -137,7 +137,9 @@
                 <th>Treatment Date</th>
                 <th>Treatment Cost </th>
                 <th>Treatment Status</th>
+                {% if current_user | get_user_type == 'Hospital' %}
                 <th></th>
+                {% endif %}
             </tr>
             {% for detail in details %}
             <tr>
@@ -147,6 +149,7 @@
                 <td>{{detail.startDate | format_date}}</td>
                 <td>{{detail | get_treatment_cost}}</td>
                 <td>{{detail | get_treatment_status}}</td>
+                {% if current_user | get_user_type == 'Hospital' %}
                 <td class="d-flex justify-content-center px-2">
                     <button>
                         <a href="{{url_for('hospital.update_detail', treatment_id=treatment.id, type = detail|get_treatment_type_lower, detail_id=detail.id)}}" class="text-decoration-none">
@@ -157,6 +160,7 @@
                         <button type="submit">❌</button>
                     </form>
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
@@ -164,6 +168,7 @@
             No Details
         {% endif %}
         <br>
+        {% if current_user | get_user_type == 'Hospital' %}
         <div class="dropdown float-end">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
               Add Treatment Detail
@@ -173,7 +178,8 @@
               <li><a class="dropdown-item" href="{{url_for('hospital.add_detail', treatment_id=treatment.id, type='checkup')}}">Medical Checkup</a></li>
               <li><a class="dropdown-item" href="{{url_for('hospital.add_detail', treatment_id=treatment.id, type='procedure')}}">Medical Procedure</a></li>
             </ul>
-          </div>
+        </div>
+        {% endif %}
     </div>
     {% elif 'detail' in purpose %}
         <form 
