@@ -5,20 +5,33 @@ body{
     height:100vh;
 }
 
-main{
-    min-height:90vh;
-    max-width: 100vw;
+body header div a{
+    text-decoration: none;
+    color: white;
+    right: 0;
 }
 
+body header div a:hover{
+    color: white;
+}
+
+/* main{
+    min-height:90vh;
+    max-width: 100vw;
+} */
+
 .header{
-    background-color: blue;
+    background-color: rgb(17, 70, 143);
     height: 5em;
 }
 
-.footer{
-    background-color: red;
-    height: 4em;
+footer{
+    background-color: rgb(4, 21, 98);
     color: white;
+}
+
+footer div span{
+    opacity: 0.4;
 }
 
 .footer-content{
