@@ -75,6 +75,9 @@ def login():
             staff_type = 'a ' + user_type if user_type == 'Hospital' else 'an ' + user_type
             flash(f"You aren't registered as {staff_type} Staff! Please try inputting the correct credentials!")
             return redirect(url_for('auth.login'))
+    else:
+        flash("Please write the correct email!!")
+        return redirect(url_for('auth.login'))
 
 @login_required
 @auth.route("/logout")

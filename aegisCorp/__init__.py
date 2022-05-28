@@ -67,7 +67,8 @@ def create_database(app):
             'hospitals','policies', 
             'insurance_staffs', 'companies',
             'medications', 'procedure_types',
-            'procedures','users'
+            'procedures','users','benefits',
+            'policy_benefits','benefit_types'
         ]
         for table_name in table_names:
             df = read_csv(f'./resources/{table_name}.csv', delimiter=',', index_col=0)             

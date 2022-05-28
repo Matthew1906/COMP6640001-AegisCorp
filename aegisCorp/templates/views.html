@@ -31,6 +31,13 @@
             <th>Treatment Description</th>
             <th></th>
         </tr>
+        {% if treatments.count() == 0 %}
+        <tr>
+            <td colspan="4">
+                There are no treatments!!!
+            </td>
+        </tr>
+        {% endif %}
     {% for treatment in treatments: %}
         <tr>
             <td>{{treatment.details | get_first_date}}</td>
@@ -44,9 +51,10 @@
     {% if current_user | get_user_type == 'Hospital' %}
         <a href="{{url_for('hospital.add_treatment')}}" class="btn btn-primary">Add Treatment</a>
     {% elif current_user | get_user_type == 'Insurance' %}
-        Insurance
+        <a href="" class="btn btn-primary">Check Claim History??</a>
     {% else %}  
-        Customer
+        <a href="" class="btn btn-primary">Register Policy</a>
+        <a href="" class="btn btn-primary">Check My Insurance Policies</a>
     {% endif %}
 </main>
 {% endblock %}
