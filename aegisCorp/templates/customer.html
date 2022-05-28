@@ -1,0 +1,14 @@
+{% extends "./layout.html" %}
+
+{% block title %}
+    {{type}} Dashboard
+{% endblock %}
+
+{% block content %}
+    {% if purpose == 'add' %}
+    <form action="{{url_for('customer.add_insurance')}}" method="post">
+        
+    </form>
+    {% elif purpose =='show' %}
+    {% endif %}
+{% endblock %}

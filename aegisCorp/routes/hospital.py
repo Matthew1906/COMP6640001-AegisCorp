@@ -2,8 +2,9 @@ from datetime import datetime
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from .. import db
+from ..forms import CheckUpForm, MedicationForm, MedicalProcedureForm, TreatmentForm
 from ..models import Customer, Doctor, HospitalStaff, TreatmentHeader, TreatmentDetail, CheckUp, Medication, Procedure, MedicationDetail, ProcedureDetail
-from ..utils import hospital_only, TreatmentForm, TreatmentForm, CheckUpForm, MedicationForm, MedicalProcedureForm
+from ..utils import hospital_only
 
 hospital = Blueprint("hospital", __name__)
 

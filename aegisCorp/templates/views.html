@@ -53,8 +53,8 @@
     {% elif current_user | get_user_type == 'Insurance' %}
         <a href="" class="btn btn-primary">Check Claim History??</a>
     {% else %}  
-        <a href="" class="btn btn-primary">Register Policy</a>
-        <a href="" class="btn btn-primary">Check My Insurance Policies</a>
+        <a href="{{url_for('customer.get_insurances')}}" class="btn btn-primary">Register Policy</a>
+        <a href="{{url_for('customer.add_insurance')}}" class="btn btn-primary">Check My Insurance Policies</a>
     {% endif %}
 </main>
 {% endblock %}
