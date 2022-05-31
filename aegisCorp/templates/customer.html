@@ -4,11 +4,52 @@
     {{type}} Dashboard
 {% endblock %}
 
+{% block back_button %}
+    <a href="{{url_for('views.home')}}" class="btn btn-warning">&larr;</a>
+{% endblock %}
+
 {% block content %}
     {% if purpose == 'add' %}
     <form action="{{url_for('customer.add_insurance')}}" method="post">
-        
+        {{form.csrf_token}}
+        {% with messages = get_flashed_messages() %}
+            {% if messages: %}
+            <p style="color:red;">{{messages[0]}}</p>
+            {% endif %}
+        {% endwith %} 
+        <div class="mb-3">
+            <label class="form-label">{{form.insurance_id.label}}</label>
+            {{form.insurance_id(class='form-control')}}
+        </div>
+        {{form.submit(class="btn btn-primary float-end")}}
     </form>
     {% elif purpose =='show' %}
+    <table class="table">
+        <tr>
+            <th>Insurance ID</th>
+            <th>Company Name</th>
+            <th>Policy Name</th>
+            <th>Benefits</th>
+        </tr>
+        {% if insurances.count() == 0 %}
+        <tr>
+            <td colspan="4"><h3>No Insurance!</h3></td>
+        </tr>
+        {% else %}
+        {% for insurance in insurances: %}
+        <tr>
+            <td>{{insurance | format_insurance_id}}</td>
+            <td>{{insurance | get_insurance_company}}</td>
+            <td>{{insurance | get_insurance_policy}}</td>
+            <td>
+                {% for benefit in insurance | get_insurance_benefits %}
+                <p>{{benefit}}</p>
+                {% endfor %}
+            </td>
+        </tr>    
+        {% endfor %}
+        {% endif %}
+    </table>
+    <a href="{{url_for('customer.add_insurance')}}" class="btn btn-primary float-end">Register Policy</a>
     {% endif %}
 {% endblock %}

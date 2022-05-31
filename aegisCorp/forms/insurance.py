@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import SelectField, SubmitField
+from wtforms.fields import StringField, SubmitField
 from wtforms.validators import InputRequired
 
 class InsuranceForm(FlaskForm):
-    company = SelectField("Insurance Company", validators=[InputRequired()])
-    policy = SelectField("Insurance Policy", validators=[InputRequired()])
-    submit = SubmitField("Add New Insurance Policy")
+    insurance_id = StringField("Enter Membership Id")
+    submit = SubmitField("Register Insurance Policy")
+    
