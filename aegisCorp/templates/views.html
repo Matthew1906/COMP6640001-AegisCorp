@@ -30,6 +30,7 @@
             <th>Treatment Date</th>
             <th>Patient Name</th>
             <th>Treatment Description</th>
+            <th>Claim Status</th>
             <th></th>
         </tr>
         {% if treatments.count() == 0 %}
@@ -44,6 +45,22 @@
             <td>{{treatment.details | get_first_date}}</td>
             <td>{{treatment.customer.user.name}}</td>
             <td>{{treatment.description}}</td>
+            <td>
+                {% if current_user | get_user_type == 'Hospital' and treatment.id|get_claim_status == -1 %}
+                    <form action="{{url_for('insurance.claim_insurance', treatment_id=treatment.id)}}" method="post">
+                        <button type="submit" class="btn btn-error">Finish Treatment</button>
+                    </form>
+                {% elif treatment.id|get_claim_status == 0 %}
+                    <button disabled="disabled" class="btn btn-warning">Pending</button>
+                    {% if current_user|get_user_type == 'Insurance' %}
+                        <a href="" class="btn btn-primary">Verify Claim</a>
+                    {% endif %}
+                {% elif treatment.id|get_claim_status == 1 %}
+                     <button disabled="disabled" class="btn btn-success">Completed</button>
+                {% else %}
+                    <button disabled="disabled" class="btn btn-success">Treatment Incomplete!</button>
+                {% endif %}
+            </td>
             <td><a href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}" class="btn btn-info">Check It Out</a></td>
         </tr>
     {% endfor %}
@@ -53,10 +70,10 @@
     <div class="d-flex justify-content-end">
         <a href="{{url_for('hospital.add_treatment')}}" class="btn btn-primary">Add Treatment</a>
     </div>
-    {% elif current_user | get_user_type == 'Insurance' %}
-        <a href="" class="btn btn-primary">Check Claim History??</a>
-    {% else %}  
+    {% elif current_user | get_user_type == 'Customer' %}
         <a href="{{url_for('customer.get_insurances')}}" class="btn btn-primary float-end">Check My Insurance Policies</a>
     {% endif %}
 </main>
 {% endblock %}
+
+ 

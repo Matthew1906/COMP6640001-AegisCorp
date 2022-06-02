@@ -5,7 +5,12 @@
     {% if purpose == 'add' %}
         Add Treatment
     {% elif 'detail' in purpose %}
-        Edit Treatment Details
+        {% if 'add' in purpose %}
+            Add 
+        {% else %}
+            Edit 
+        {% endif %}
+        Treatment Details
     {% else %}
         Treatment Details
     {% endif %}
@@ -183,6 +188,9 @@
             </ul>
         </div>
         {% endif %}
+        <div class="mt-4">
+            
+        </div>
     </div>
     {% elif 'detail' in purpose %}
         <form 

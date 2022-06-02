@@ -26,6 +26,7 @@ utils.add_app_template_filter(get_first_date, 'get_first_date')
 utils.add_app_template_filter(get_insurance_benefits, 'get_insurance_benefits')
 utils.add_app_template_filter(get_insurance_company, 'get_insurance_company')
 utils.add_app_template_filter(get_insurance_policy, 'get_insurance_policy')
+utils.add_app_template_filter(get_claim_status, 'get_claim_status')
 
 # URL Manipulation
 utils.add_app_template_filter(add_args, 'add_args')
