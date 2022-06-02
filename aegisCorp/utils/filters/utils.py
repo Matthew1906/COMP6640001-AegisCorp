@@ -8,3 +8,6 @@ def currency(price:int):
 def format_id(id):
     count = len(str(id))
     return "0"*(3-count) + str(id)
+
+def format_date(date):
+    return date.strftime("%d/%m/%Y")

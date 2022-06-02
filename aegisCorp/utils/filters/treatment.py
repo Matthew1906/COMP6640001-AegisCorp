@@ -1,5 +1,5 @@
 from datetime import datetime
-from .utils import currency 
+from .utils import currency, format_date
 
 def get_treatment_type(detail):
     if detail.medication != []:

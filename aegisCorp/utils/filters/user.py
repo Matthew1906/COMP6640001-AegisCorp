@@ -14,9 +14,6 @@ def get_user_type(current_user):
     else:
         return "Customer"
 
-def format_date(date):
-    return date.strftime("%d/%m/%Y")
-
 def format_age(date):
     return datetime.now().year - date.year
 

@@ -1,4 +1,5 @@
 from flask import Blueprint
+from .utils import format_date
 from .insurance import *
 from .treatment import *
 from .user import *
