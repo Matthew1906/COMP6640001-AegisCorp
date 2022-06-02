@@ -157,7 +157,7 @@
                 <td>{{detail.startDate | format_date}}</td>
                 <td>{{detail | get_treatment_cost}}</td>
                 <td>{{detail | get_treatment_status}}</td>
-                {% if current_user | get_user_type == 'Hospital' %}
+                {% if current_user | get_user_type == 'Hospital' and treatment.id|get_claim_status == -1 %}
                 <td class="d-flex justify-content-center px-2">
                     <button class="up">
                         <a href="{{url_for('hospital.update_detail', treatment_id=treatment.id, type = detail|get_treatment_type_lower, detail_id=detail.id)}}" class="text-decoration-none">
@@ -176,7 +176,7 @@
             No Details
         {% endif %}
         <br>
-        {% if current_user | get_user_type == 'Hospital' %}
+        {% if current_user | get_user_type == 'Hospital' and treatment.id|get_claim_status == -1 %}
         <div class="dropdown float-end">
             <a class="btn btn-secondary dropdown-toggle treatment-detail" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
               Add Treatment Detail
