@@ -15,6 +15,21 @@ body header div a:hover{
     color: white;
 }
 
+.treatment-detail{
+    background-color: rgb(218, 18, 18);
+    border: none;   
+}
+
+.up{
+    background-color: white;
+    border: none;
+}
+
+.del{
+    background-color: white;
+    border: none;
+}
+
 /* main{
     min-height:90vh;
     max-width: 100vw;
