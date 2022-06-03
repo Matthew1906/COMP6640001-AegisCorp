@@ -68,3 +68,12 @@ def claim_insurance(treatment_id:int):
     db.session.add(new_claim)
     db.session.commit()
     return redirect(url_for('views.home'))
+
+@insurance.route('/claims/<int:treatment_id>')
+@insurance_only
+def verify_claim(treatment_id:int):
+    header = TreatmentHeader.query.filter_by(id=treatment_id).first()
+    claim = TreatmentClaim.query.filter_by(member_id=header.customer_id, treatment_id = header.id).first()
+    claim.claim_status=True
+    db.session.commit() 
+    return redirect(url_for('views.home'))

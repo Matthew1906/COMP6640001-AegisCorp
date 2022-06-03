@@ -17,6 +17,8 @@ utils.add_app_template_filter(format_age, 'format_age')
 utils.add_app_template_filter(format_marital_status, 'format_marital_status')
 utils.add_app_template_filter(format_gender, 'format_gender')
 utils.add_app_template_filter(format_insurance_id, 'format_insurance_id')
+utils.add_app_template_filter(jsonify, 'jsonify')
+utils.add_app_template_filter(format_price, 'format_price')
 
 # Get value
 utils.add_app_template_filter(get_treatment_cost, 'get_treatment_cost')
@@ -27,6 +29,7 @@ utils.add_app_template_filter(get_insurance_benefits, 'get_insurance_benefits')
 utils.add_app_template_filter(get_insurance_company, 'get_insurance_company')
 utils.add_app_template_filter(get_insurance_policy, 'get_insurance_policy')
 utils.add_app_template_filter(get_claim_status, 'get_claim_status')
+utils.add_app_template_filter(get_coverage_status, 'get_coverage_status')
 
 # URL Manipulation
 utils.add_app_template_filter(add_args, 'add_args')

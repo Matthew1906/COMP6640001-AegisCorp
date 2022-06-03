@@ -27,6 +27,9 @@
     </div>
     <table class="table">
         <tr>
+            {% if current_user | get_user_type != 'Hospital' %}
+                <th>Hospital</th>
+            {% endif %}
             <th>Treatment Date</th>
             <th>Patient Name</th>
             <th>Treatment Description</th>
@@ -42,6 +45,9 @@
         {% endif %}
     {% for treatment in treatments: %}
         <tr>
+            {% if current_user | get_user_type != 'Hospital' %}
+                <td>{{treatment.hospital.name}}</td>
+            {% endif %}
             <td>{{treatment.details | get_first_date}}</td>
             <td>{{treatment.customer.user.name}}</td>
             <td>{{treatment.description}}</td>
@@ -52,16 +58,21 @@
                     </form>
                 {% elif treatment.id|get_claim_status == 0 %}
                     <button disabled="disabled" class="btn btn-warning">Pending</button>
-                    {% if current_user|get_user_type == 'Insurance' %}
-                        <a href="" class="btn btn-primary">Verify Claim</a>
-                    {% endif %}
                 {% elif treatment.id|get_claim_status == 1 %}
                      <button disabled="disabled" class="btn btn-success">Completed</button>
                 {% else %}
                     <button disabled="disabled" class="btn btn-success">Treatment Incomplete!</button>
                 {% endif %}
             </td>
-            <td><a href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}" class="btn btn-info">Check It Out</a></td>
+            <td>
+                <a href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}{%if treatment.id|get_claim_status != -1 and current_user|get_user_type != 'Hospital'%}?claim=true{% endif %}" class="btn btn-info">
+                {% if treatment.id|get_claim_status == 0 and current_user|get_user_type == 'Insurance' %}
+                    Verify Claim
+                {% else %}
+                    Check It Out
+                {% endif %}
+                </a>
+            </td>
         </tr>
     {% endfor %}
     </table>

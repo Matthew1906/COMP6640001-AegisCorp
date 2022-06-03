@@ -188,10 +188,61 @@
             </ul>
         </div>
         {% endif %}
-        <div class="mt-4">
-            
-        </div>
     </div>
+    {% if current_user | get_user_type == 'Insurance'%}
+    <div>
+        <table class="table">
+            <tr>
+                <th>Insurance ID</th>
+                <th>Policy Name</th>
+                <th>Expiration Date</th>
+                <th>Benefits</th>
+            </tr>
+            {% if insurances.count() == 0 %}
+            <tr>
+                <td colspan="4"><h3>No Insurance!</h3></td>
+            </tr>
+            {% else %}
+            {% for insurance in insurances: %}
+            <tr>
+                <td>{{insurance | format_insurance_id}}</td>
+                <td>{{insurance | get_insurance_policy}}</td>
+                <td>{{insurance.expiration_date | format_date}}</td>
+                <td>
+                    {% for benefit in insurance | get_insurance_benefits %}
+                    <p>{{benefit}}</p>
+                    {% endfor %}
+                </td>
+            </tr>    
+            {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+    {% endif %}
+    {% if current_user|get_user_type != 'Hospital' and treatment.id|get_claim_status !=-1 %}
+    <table class="table">
+        <tr>
+            <th>Policy</th>
+            <th>Treatment Type</th>
+            <th>Total Fee</th>
+            <th>Coverage Status</th>
+            <th>Final Fee</th>
+        </tr>
+        {% for report in claim.claim_report|jsonify %}
+            {% if report.total_price!= 0 %} 
+            <tr>
+                <td>{{report.policy}}</td>
+                <td>{{report.treatment_type}}</td>
+                <td>{{report.total_price | format_price}}</td>
+                <td>{{report | get_coverage_status}}</td>
+                <td>{{report.final_fee | format_price}}</td>
+            </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% if treatment.id|get_claim_status ==0 %}
+    <a href="{{url_for('insurance.verify_claim', treatment_id=treatment.id)}}" class="btn btn-success float-end">Confirm Coverage</a>
+    {% endif %}{% endif %}
     {% elif 'detail' in purpose %}
         <form 
         action="{% if 'add' in purpose %}{{url_for('hospital.add_detail', treatment_id=treatment.id, type=type)}}

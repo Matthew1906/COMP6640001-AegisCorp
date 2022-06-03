@@ -1,5 +1,6 @@
 from ...models import TreatmentClaim, TreatmentHeader
 from .utils import currency, format_id
+import json
 
 def format_insurance_id(insurance):
     return f"MEM_{format_id(insurance.member_id)}_POL_{format_id(insurance.policy_id)}"
@@ -26,3 +27,15 @@ def get_claim_status(treatment_id:int):
         return 0
     else:
         return -1
+
+def jsonify(report:str):
+    return json.loads(report)
+
+def format_price(price):
+    return currency(price)
+
+def get_coverage_status(report):
+    if report.get('insurance_coverage')>=report.get('total_price'):
+        return 'Completely covered'
+    else:
+        return 'Partially covered'

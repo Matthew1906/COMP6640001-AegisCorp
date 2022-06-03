@@ -2,8 +2,11 @@ from datetime import datetime
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 from .. import db
-from ..forms import CheckUpForm, MedicationForm, MedicalProcedureForm, TreatmentForm
-from ..models import Customer, Doctor, HospitalStaff, TreatmentHeader, TreatmentDetail, CheckUp, Medication, Procedure, MedicationDetail, ProcedureDetail
+from ..forms import CheckUpForm, MedicationForm, MedicalProcedureForm,\
+    TreatmentForm
+from ..models import Customer, CustomerInsurance, Doctor, HospitalStaff,\
+    TreatmentClaim, TreatmentHeader, TreatmentDetail, CheckUp, Medication,\
+        Procedure, MedicationDetail, ProcedureDetail
 from ..utils import hospital_only
 
 hospital = Blueprint("hospital", __name__)
@@ -37,7 +40,9 @@ def get_treatment(treatment_id:int):
         'procedure':details.join(TreatmentDetail.procedure)
     }
     details = detail_filters.get(request.args.get('type','all'))
-    return render_template('treatment.html', purpose='show', treatment=treatment, details=details)
+    insurances = CustomerInsurance.query.filter_by(member_id=treatment.customer_id)
+    claim = TreatmentClaim.query.filter_by(member_id=treatment.customer_id, treatment_id=treatment.id).first() if(request.args.get('claim')!=None) else None
+    return render_template('treatment.html', purpose='show', treatment=treatment, details=details, insurances=insurances, claim=claim)
 
 @hospital.route("/treatments/<int:treatment_id>/add/<type>", methods=['GET','POST'])
 @hospital_only
