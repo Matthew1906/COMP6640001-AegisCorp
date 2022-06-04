@@ -37,5 +37,7 @@ def format_price(price):
 def get_coverage_status(report):
     if report.get('insurance_coverage')>=report.get('total_price'):
         return 'Completely covered'
-    else:
+    elif report.get('policy') !=None:
         return 'Partially covered'
+    else:
+        return 'Not covered'

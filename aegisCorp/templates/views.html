@@ -52,16 +52,16 @@
             <td>{{treatment.customer.user.name}}</td>
             <td>{{treatment.description}}</td>
             <td>
-                {% if current_user | get_user_type == 'Hospital' and treatment.id|get_claim_status == -1 %}
+                {% if current_user | get_user_type == 'Hospital' and treatment.id|get_claim_status == -1 and treatment.details!=[] %}
                     <form action="{{url_for('insurance.claim_insurance', treatment_id=treatment.id)}}" method="post">
-                        <button type="submit" class="btn btn-error">Finish Treatment</button>
+                        <button type="submit" class="btn btn-danger">Finish Treatment</button>
                     </form>
                 {% elif treatment.id|get_claim_status == 0 %}
                     <button disabled="disabled" class="btn btn-warning">Pending</button>
                 {% elif treatment.id|get_claim_status == 1 %}
                      <button disabled="disabled" class="btn btn-success">Completed</button>
                 {% else %}
-                    <button disabled="disabled" class="btn btn-success">Treatment Incomplete!</button>
+                    <button disabled="disabled" class="btn btn-danger">Treatment Incomplete!</button>
                 {% endif %}
             </td>
             <td>
