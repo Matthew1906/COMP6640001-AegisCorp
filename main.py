@@ -1,4 +1,4 @@
-from aegisCorp import create_app
+from app import create_app
 
 # Development
 if __name__ == '__main__':
