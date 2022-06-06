@@ -1,11 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import DateField, HiddenField, IntegerField, SelectField, StringField, SubmitField, TextAreaField
+from flask_wtf.file import FileAllowed
+from wtforms.fields import DateField, FileField, HiddenField, IntegerField, SelectField, StringField, SubmitField, TextAreaField
 from wtforms.validators import InputRequired
 
 class TreatmentForm(FlaskForm):
     hospital = HiddenField(label='Hospital')
     customer = SelectField(label='Patient Name')
     description = StringField(label='Treatment Description', validators=[InputRequired()])
+    identity = FileField(label='Identity Confirmation', validators=[FileAllowed(['jpg','png'], 'Images only!')])
     submit = SubmitField(label='Add New Treatment')
     def __init__(self, customers = [], *args, **kwargs):
         super().__init__(*args, **kwargs)

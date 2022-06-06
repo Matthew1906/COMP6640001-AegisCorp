@@ -1,5 +1,5 @@
-from ...models import TreatmentClaim, TreatmentHeader
 from .utils import currency, format_id
+from ...models import TreatmentClaim, TreatmentHeader
 import json
 
 def format_insurance_id(insurance):

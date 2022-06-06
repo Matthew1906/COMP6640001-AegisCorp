@@ -27,7 +27,7 @@
 {% block content %}
 <main class="container-fluid my-4">
     {% if purpose == 'add' %}
-    <form action="{{url_for('hospital.add_treatment')}}" method="post" novalidate>
+    <form action="{{url_for('hospital.add_treatment')}}" method="post" enctype="multipart/form-data" novalidate>
         <h3>Add New Treatment</h3>
         {{form.csrf_token}}
         {% for detail in form %} 

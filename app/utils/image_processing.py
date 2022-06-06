@@ -1,6 +1,6 @@
+from base64 import b64encode
 from imagekitio import ImageKit
 from os import getenv
-from base64 import b64encode
 
 imagekit = ImageKit(
     private_key = getenv('IMAGEKIT_PRIVATE_KEY'),

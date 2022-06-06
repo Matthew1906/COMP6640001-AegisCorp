@@ -7,7 +7,7 @@ from ..forms import CheckUpForm, MedicationForm, MedicalProcedureForm,\
 from ..models import Customer, CustomerInsurance, Doctor, HospitalStaff,\
     TreatmentClaim, TreatmentHeader, TreatmentDetail, CheckUp, Medication,\
         Procedure, MedicationDetail, ProcedureDetail
-from ..utils import hospital_only
+from ..utils import check_identity, hospital_only
 
 hospital = Blueprint("hospital", __name__)
 
@@ -17,14 +17,16 @@ def add_treatment():
     form = TreatmentForm(customers=[(customer.id, customer.user.name) for customer in Customer.query.all()])
     staff = HospitalStaff.query.filter_by(user_id=current_user.id).first()
     if form.validate_on_submit():
-        new_treatment = TreatmentHeader(
-            hospital_id = staff.hospital_id,
-            customer_id = int(request.form.get('customer')),
-            description = request.form.get('description')
-        )
-        db.session.add(new_treatment)
-        db.session.commit()
-        return redirect(url_for('views.home'))
+        customer = Customer.query.filter_by(id=int(request.form.get('customer'))).first()
+        if customer!=None and check_identity(customer.image_url, request.files.get('identity')):
+            new_treatment = TreatmentHeader(
+                hospital_id = staff.hospital_id,
+                customer_id = int(request.form.get('customer')),
+                description = request.form.get('description')
+            )
+            db.session.add(new_treatment)
+            db.session.commit()
+            return redirect(url_for('views.home'))
     else:
         return render_template('treatment.html', form=form, purpose='add', hospital=staff.hospital_id)
 

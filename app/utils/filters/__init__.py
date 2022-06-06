@@ -1,8 +1,8 @@
 from flask import Blueprint
-from .utils import format_date
 from .insurance import *
 from .treatment import *
 from .user import *
+from .utils import format_date
 
 utils = Blueprint('utils', __name__)
 

@@ -1,6 +1,5 @@
-# Database
-from .. import db 
 from sqlalchemy.orm import relationship 
+from .. import db 
 
 # Config tables
 class TreatmentClaim(db.Model):
