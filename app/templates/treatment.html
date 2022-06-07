@@ -27,6 +27,8 @@
 {% block content %}
 <main class="container-fluid my-4">
     {% if purpose == 'add' %}
+    <!-- <div class="container mt-3">
+    </div> just in case butuh buat resizing and layoutting-->
     <form action="{{url_for('hospital.add_treatment')}}" method="post" enctype="multipart/form-data" novalidate>
         <h3>Add New Treatment</h3>
         {{form.csrf_token}}
@@ -42,11 +44,11 @@
     </form>
     {% elif purpose == 'show' %}
     <div class="container-fluid d-flex justify-content-center align-items-center">
-        <div class="col-2">
-            <span>
-                <img class="rounded-circle" src="{{treatment.customer.image_url}}" alt="{{treatment.customer.user.name}}" width="100px" height="100px">
+        <div class="col-2 d-flex flex-row">
+            <span class="p-3">
+                <img class="rounded-circle" src="{{treatment.customer.image_url}}" alt="{{treatment.customer.user.name}}" width="130px" height="130px">
             </span>
-            <h3>{{treatment.customer.user.name}}, {{treatment.customer.user.dob | format_age}}</h3>
+            <h5 class="align-self-center">{{treatment.customer.user.name}}, {{treatment.customer.user.dob | format_age}}</h5>
             <!-- <em>{{treatment.customer.user.email}}</em> -->
         </div>
         <div class="col-3 p-0 offset-1">
@@ -123,7 +125,11 @@
         </div>
     </div>
     <div>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-between mt-3 mb-3">
+            <div></div>
+            <div class="align-self-center fs-3">
+                Treatment List
+            </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Treatment Type
@@ -137,26 +143,26 @@
             </div>
         </div>
         {% if details.count()!=0 %}
-        <table class="table">
+        <table class="table m-3">
             <tr>
-                <th>Treatment Type</th>
-                <th>Doctor</th>
-                <th>Treatment Description</th>
-                <th>Treatment Date</th>
-                <th>Treatment Cost </th>
-                <th>Treatment Status</th>
+                <th class="border border-dark">Treatment Type</th>
+                <th class="border border-dark">Doctor</th>
+                <th class="border border-dark">Treatment Description</th>
+                <th class="border border-dark">Treatment Date</th>
+                <th class="border border-dark">Treatment Cost </th>
+                <th class="border border-dark">Treatment Status</th>
                 {% if current_user | get_user_type == 'Hospital' %}
                 <th></th>
                 {% endif %}
             </tr>
             {% for detail in details %}
             <tr>
-                <td>{{detail | get_treatment_type}}</td>
-                <td>{{detail.doctor.name}}</td>
-                <td>{{detail | get_treatment_detail}}</td>
-                <td>{{detail.startDate | format_date}}</td>
-                <td>{{detail | get_treatment_cost}}</td>
-                <td>{{detail | get_treatment_status}}</td>
+                <td class="border border-dark">{{detail | get_treatment_type}}</td>
+                <td class="border border-dark">{{detail.doctor.name}}</td>
+                <td class="border border-dark">{{detail | get_treatment_detail}}</td>
+                <td class="border border-dark">{{detail.startDate | format_date}}</td>
+                <td class="border border-dark">{{detail | get_treatment_cost}}</td>
+                <td class="border border-dark">{{detail | get_treatment_status}}</td>
                 {% if current_user | get_user_type == 'Hospital' and treatment.id|get_claim_status == -1 %}
                 <td class="d-flex justify-content-center px-2">
                     <button class="up">

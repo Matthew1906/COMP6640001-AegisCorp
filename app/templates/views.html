@@ -25,16 +25,16 @@
             </ul>
         </div>
     </div>
-    <table class="table">
+    <table class="table mt-3">
         <tr>
             {% if current_user | get_user_type != 'Hospital' %}
-                <th>Hospital</th>
+                <th class="border border-dark">Hospital</th>
             {% endif %}
-            <th>Treatment Date</th>
-            <th>Patient Name</th>
-            <th>Treatment Description</th>
-            <th>Claim Status</th>
-            <th></th>
+            <th class="border border-dark">Treatment Date</th>
+            <th class="border border-dark">Patient Name</th>
+            <th class="border border-dark">Treatment Description</th>
+            <th class="border border-dark">Claim Status</th>
+            <th class="border border-dark">Details</th>
         </tr>
         {% if treatments.count() == 0 %}
         <tr>
@@ -48,10 +48,10 @@
             {% if current_user | get_user_type != 'Hospital' %}
                 <td>{{treatment.hospital.name}}</td>
             {% endif %}
-            <td>{{treatment.details | get_first_date}}</td>
-            <td>{{treatment.customer.user.name}}</td>
-            <td>{{treatment.description}}</td>
-            <td>
+            <td class="border border-dark">{{treatment.details | get_first_date}}</td>
+            <td class="border border-dark">{{treatment.customer.user.name}}</td>
+            <td class="border border-dark">{{treatment.description}}</td>
+            <td class="border border-dark">
                 {% if current_user | get_user_type == 'Hospital' and treatment.id|get_claim_status == -1 and treatment.details!=[] %}
                     <form action="{{url_for('insurance.claim_insurance', treatment_id=treatment.id)}}" method="post">
                         <button type="submit" class="btn btn-danger">Finish Treatment</button>
@@ -64,7 +64,7 @@
                     <button disabled="disabled" class="btn btn-danger">Treatment Incomplete!</button>
                 {% endif %}
             </td>
-            <td>
+            <td class="border border-dark">
                 <a href="{{url_for('hospital.get_treatment', treatment_id=treatment.id)}}{%if treatment.id|get_claim_status != -1 and current_user|get_user_type != 'Hospital'%}?claim=true{% endif %}" class="btn btn-info">
                 {% if treatment.id|get_claim_status == 0 and current_user|get_user_type == 'Insurance' %}
                     Verify Claim
